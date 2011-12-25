@@ -27,15 +27,21 @@ CPP_FLAGS := -g
 INCLUDE := -L/usr/local/include `libpng-config --cflags`
 LINK_FLAGS := -L/usr/local/lib `libpng-config --ldflags`
 
+PNG++VER := 0.2.5
+
 %.o: %.cpp
 	@echo "#  Build " $@
 	$(CPP) $(CPP_FLAGS) $(INCLUDE) -c $< -o $@ 
 
-all: $(CPP_OBJS) bin_vis.o
+all: png++_link $(CPP_OBJS) bin_vis.o
 	$(CPP) $(CPP_FLAGS) $(CPP_OBJS) bin_vis.o $(LINK_FLAGS) -o bin_vis
 
-png++:
+png++: png++_link
 	make -C ./png++
+
+png++_link:
+	ln -s -f png++-$(PNG++VER) png++
 
 clean:
 	find ./ -iname '*.o' | xargs rm
+	rm ./bin_vis ./png++
