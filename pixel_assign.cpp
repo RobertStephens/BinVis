@@ -19,7 +19,49 @@
 
 #include "pixel_assign.h"
 
-#include <iostream>
+using namespace std;
+
+int PixelAssign::parse_config(std::string config_file, bool dump_results) {
+
+    ifstream infile( config_file.c_str() );
+
+    std::string key, tmp;
+    double value;
+
+    if(!infile.is_open() ) {
+        cerr << "unable to open file " << config_file << endl;
+        return -1; 
+    }
+
+    size_t buff_size = 256;
+    char tmp_buff[256];
+
+    while( infile.getline(tmp_buff, buff_size) ) {
+
+        tmp = string(tmp_buff);
+        istringstream iss(tmp);
+
+        vector<string> tokens;
+        copy(istream_iterator<string>(iss),
+             istream_iterator<string>(),
+             back_inserter<vector<string> >(tokens));
+
+        if(tokens.size() < 2 || tokens[0][0] == '#') {
+            continue;
+        }
+
+        key = tokens[0];
+        value = convertTo<unsigned short>(tokens[1]);
+        _param_map[key] = value;
+        //cout << key << " " << value << " "  << tokens[1]  << endl; 
+    }
+
+    if(dump_results) {
+        dump_param_map();
+    }
+
+    return 0;
+}
 
 void PixelAssign::thresh(RGB& rgb, char point) {
  
@@ -37,19 +79,46 @@ void PixelAssign::thresh(RGB& rgb, char point) {
         rgb._a = 0xFFFF;
     }
     else {
-        rgb._r = (0xFF*static_cast<unsigned char>(point) );
-        rgb._g = 0x7777;
-        rgb._b = 0xFFFF - rgb._r;
         
-        /*int a = (0xFFFF)/2 - rgb._b;
-        if(a < 0) a = 0 - a;
-        rgb._a = a + (0xFFFF)/2;*/
-       
-        rgb._a = 0xFFFF;
+        //0x01 - 0x54 -> bluer
+        //0x55 - 0xAA -> greener
+        //0xAB - 0xFE -> redder
 
-        /* std::cout << rgb._r << " " << rgb._b << " " << 
-                     static_cast<unsigned char>(point) << " " << rgb._a << std::endl; */
-        
+        rgb._r = 0x0000;
+        rgb._g = 0x0000;
+        rgb._b = 0x0000;
+
+        //std::cout << std::hex << int( static_cast<unsigned char>(point) ) << std::endl;
+        if( _blue_low <= static_cast<unsigned char>(point) && 
+            _blue_high >= static_cast<unsigned char>(point) 
+          ) {
+            rgb._b = _param_map["intensity"] * (static_cast<unsigned char>(point) - _blue_low);
+            //std::cout << "### b: " << rgb._b << std::endl;
+        }
+        else if( _green_low <= static_cast<unsigned char>(point) && 
+            _green_high >= static_cast<unsigned char>(point) 
+          ) {
+            rgb._g = _param_map["intensity"] * (static_cast<unsigned char>(point) - _green_low);
+            //std::cout << "### g: " << rgb._g << std::endl;
+        }
+        else if( _red_low <= static_cast<unsigned char>(point) && 
+            _red_high >= static_cast<unsigned char>(point) 
+          ) {
+            rgb._r = _param_map["intensity"] * (static_cast<unsigned char>(point) - _red_low);
+            //std::cout << "### r: " << rgb._r << std::endl;
+        }
+        else {
+            std::cout << "ERROR: " << std::endl;
+        }
+
+        rgb._a = _param_map["alpha"];
+
     }
 }
 
+void PixelAssign::dump_param_map(void) {
+    std::map<std::string, unsigned short>::const_iterator it;
+    for(it = _param_map.begin(); it != _param_map.end(); ++it) {
+        std::cout << it->first << " " << std::hex << it->second << std::endl;
+    }
+}

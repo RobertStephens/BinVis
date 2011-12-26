@@ -1,0 +1,6 @@
+### output image parameters ###
+
+intensity 100     #one byte, 0 to FF
+alpha     65535   #two bytes, 0 to FFFF
+
+

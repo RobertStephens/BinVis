@@ -39,7 +39,7 @@ int main(int argc, char** argv) {
 
 
     if(argc < 2) {
-        cerr << "usage: ./run_hilbert binary_in [image_out.png]" << endl;
+        cerr << "usage: ./bin_vis binary_in [image_out.png]" << endl;
         return EXIT_FAILURE;
     }
 

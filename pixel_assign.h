@@ -20,14 +20,48 @@
 #ifndef PIXEL_ASSIGN_H_
 #define PIXEL_ASSIGN_H_
 
+#include <map>
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <iterator>
+#include <vector>
+
 #include "RGB_point.h"
+#include "include/stringify.h"
 
 class PixelAssign {
 
 public:
+    PixelAssign(void) : _blue_low(0x01), _blue_high(0x54),
+                        _green_low(0x55), _green_high(0xAA),
+                        _red_low(0xAB), _red_high(0xFE) {
+    
+        std::string config_file = "./config/config.txt";
+        bool dump_results = true;
+        parse_config(config_file, dump_results); 
+    
+    }
+    
+    int parse_config(std::string config_file, bool dump_results);
+
     void thresh(RGB& rgb, char point);
 
 private:
+
+    void dump_param_map(void);
+
+    unsigned char _blue_low;
+    unsigned char _blue_high;
+
+    unsigned char _green_low;
+    unsigned char _green_high;
+
+    unsigned char _red_low;
+    unsigned char _red_high;
+
+    std::map<std::string, unsigned short> _param_map;
 
 };
 

@@ -1,0 +1,50 @@
+###########################################################################
+#                                                                         #
+#  Copyright (c) 2011 Robert Stephens                                     #
+#                                                                         #
+#  This file is part of BinVis.                                           #
+#                                                                         #
+#  BinVis is free software: you can redistribute it and/or modify         #
+#  it under the terms of the GNU General Public License as published by   #
+#  the Free Software Foundation, either version 3 of the License, or      #
+#  (at your option) any later version.                                    #
+#                                                                         #
+#  BinVis is distributed in the hope that it will be useful,              #
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of         #
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          #
+#  GNU General Public License for more details.                           #
+#                                                                         #
+#  You should have received a copy of the GNU General Public License      # 
+#  along with BinVis.  If not, see <http://www.gnu.org/licenses/>.        #
+#                                                                         #
+###########################################################################
+
+
+        ##############
+        ### BinVis ###
+        ##############
+ 
+ Create 2d visual representation of arbitrary binary files using Hilbert space filling curves 
+ to ensure 2d spatial closeness in both x and y directions correlates with linear spatial closeness 
+ in target binary file.
+ 
+ Largest possible Hilbert curve is choosen - this is given as percentage coverage of input binary.
+ 
+        
+        ###############################
+        ### Compliation and running ###
+        ###############################
+
+ Debian based: sudo apt-get install libpng12-dev
+ Redhat based: sudo yum install libpng-devel
+
+ cd ./BinVis
+ make
+ ./bin_vis target_binary [ destination_image.png ]
+
+
+        #####################
+        ### Colour coding ###
+        #####################
+
+ Data processed byte-by-byte. 0x00 coloured as black, 0xFF as while, 0x01 - 0xFE coloured from blue to red.

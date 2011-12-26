@@ -20,9 +20,15 @@
 CPP_FILES := hilbert.cpp pixel_assign.cpp pixel_generator.cpp
 CPP_OBJS :=  $(CPP_FILES:%.cpp=%.o)
 
+DEBUG ?= 0
+ifeq ($(DEBUG), 1)
+    CPP_FLAGS := -g3 -DDEBUG
+else
+    CPP_FLAGS := -O3 -DNDEBUG
+endif
+
 
 CPP := g++
-CPP_FLAGS := -g
 
 INCLUDE := -L/usr/local/include `libpng-config --cflags`
 LINK_FLAGS := -L/usr/local/lib `libpng-config --ldflags`
@@ -40,7 +46,7 @@ png++: png++_link
 	make -C ./png++
 
 png++_link:
-	ln -s -f png++-$(PNG++VER) png++
+	touch png++ && rm png++ && ln -s -f png++-$(PNG++VER) png++
 
 clean:
 	find ./ -iname '*.o' | xargs rm

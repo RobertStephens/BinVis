@@ -28,8 +28,6 @@
 PixelGenerator::PixelGenerator(size_t width, size_t height, std::vector<std::vector<RGB> >& _image_data) :
     _image(width, height) {
 
-    short alpha;
-
     for (size_t y = 0; y < _image.get_height(); ++y) {
         for (size_t x = 0; x < _image.get_width(); ++x) {
             
