@@ -35,7 +35,7 @@ public:
 
     Hilbert(int n, int usable_length);
 
-    int run(char* data, PixelAssign& pixel_assign);
+    int run(char* data, PixelAssign& pixel_assign, int decimation);
 
     int write_image(std::string image_filename);
 

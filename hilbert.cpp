@@ -28,11 +28,11 @@ Hilbert::Hilbert(int n, int usable_length) :
 }
 
 
-int Hilbert::run(char* data, PixelAssign& pixel_assign) {
+int Hilbert::run(char* data, PixelAssign& pixel_assign, int decimation) {
 
     int x, y;
 
-    for(int d = 0; d < _usable_length; ++d) {
+    for(int d = 0; d < _usable_length; d+=decimation) {
         d2xy(_n, d, x, y);
         pixel_assign.thresh(_image_data[x][y], data[d]); 
     }
@@ -50,7 +50,7 @@ int Hilbert::write_image(string image_filename) {
     }
     catch (std::exception const& error) {
         std::cerr << "PixelGenerator: " << error.what() << std::endl;
-        return EXIT_FAILURE;
+        return -1;
     }
 
     return 0;

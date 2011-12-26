@@ -25,6 +25,7 @@
 
 #include "hilbert.h"
 #include "pixel_assign.h"
+#include "include/stringify.h"
 
 using namespace std;
 
@@ -60,22 +61,39 @@ int main(int argc, char** argv) {
         return EXIT_FAILURE;
     }
     
-    char data[usable_length];
+    char* data = new char[usable_length];
+    
     ret = obtain_data(file_in, data, usable_length);
     if(ret != 0) {
         cerr << "IO Error: " << file_in << endl;
         return EXIT_FAILURE;
     }
+
+    int decimation = 1;
+    int size_limit = 1024; 
+
+    if(n > size_limit) {
+        decimation = n / size_limit;
+    }
    
-    Hilbert hilbert(n, usable_length);
-    
-    
+    string decim_string = "using no decimation";
+    if(decimation != 1) {
+        decim_string = "using decimation factor of " + stringify(decimation);
+    }
+    cout << decim_string << endl;
+
+    Hilbert hilbert(n/decimation, usable_length);
+
     PixelAssign pixel_assign; 
     
-    hilbert.run(data, pixel_assign);
+    hilbert.run(data, pixel_assign, decimation);
+    delete[] data;
     
-    hilbert.write_image(image_file);
-    
+    ret = hilbert.write_image(image_file);
+    if(ret != 0) {
+        cerr << "Image writing error: " << image_file << endl;
+        return EXIT_FAILURE;
+    }
 
     return EXIT_SUCCESS;
 }
