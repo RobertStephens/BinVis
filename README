@@ -28,9 +28,11 @@
  to ensure 2d spatial closeness in both x and y directions correlates with linear spatial closeness 
  in target binary file.
  
- Largest possible Hilbert curve is choosen - this is given as percentage coverage of input binary.
+ The largest possible Hilbert curve is chosen - this is given as percentage coverage of input binary.
  
-         
+ Max resultant image size is 1024 * 1024 - if input data is too large it is appropriately decimated.
+     
+
         ###############################
         ### Compliation and running ###
         ###############################
