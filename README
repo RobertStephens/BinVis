@@ -30,7 +30,7 @@
  
  Largest possible Hilbert curve is choosen - this is given as percentage coverage of input binary.
  
-        
+         
         ###############################
         ### Compliation and running ###
         ###############################
@@ -47,4 +47,5 @@
         ### Colour coding ###
         #####################
 
- Data processed byte-by-byte. 0x00 coloured as black, 0xFF as while, 0x01 - 0xFE coloured from blue to red.
+ Data processed byte-by-byte. 0x00 coloured as black, 0xFF as while, 0x01 - 0xFE coloured as blue,
+ green and then red of increasing intensity.
