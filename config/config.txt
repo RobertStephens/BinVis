@@ -5,7 +5,7 @@
 
 ### png ####
 intensity   255     #one byte, 0 to FF
-alpha       65535   #two bytes, 0 to FFFF
+alpha       255     #one byte, 0 to FF
 
 ### colour buckets, one byte each ###
 blue_low    1

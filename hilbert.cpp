@@ -34,7 +34,7 @@ int Hilbert::run(char* data, PixelAssign& pixel_assign, int decimation) {
 
     for(int i, d = 0; i < _usable_length; d++, i+=decimation) {
         d2xy(_n, d, x, y);
-        pixel_assign.thresh(_image_data[x][y], data[d]); 
+        pixel_assign.thresh(_image_data[x][y], data[i]); 
     }
 
 }

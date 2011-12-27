@@ -70,35 +70,41 @@ void PixelAssign::thresh(RGB& rgb, char point) {
         rgb._r = 0x0;
         rgb._g = 0x0;
         rgb._b = 0x0;
-        rgb._a = 0xFFFF;
+        rgb._a = 0xFF;
     }
     else if(point == all) {
-        rgb._r = 0xFFFF;
-        rgb._g = 0xFFFF;
-        rgb._b = 0xFFFF;
-        rgb._a = 0xFFFF;
+        rgb._r = 0xFF;
+        rgb._g = 0xFF;
+        rgb._b = 0xFF;
+        rgb._a = 0xFF;
     }
     else {
         
-        rgb._r = 0x0000;
-        rgb._g = 0x0000;
-        rgb._b = 0x0000;
+        rgb._r = 0x00;
+        rgb._g = 0x00;
+        rgb._b = 0x00;
 
         //std::cout << std::hex << int( static_cast<unsigned char>(point) ) << std::endl;
         if( _param_map["blue_low"] <= static_cast<unsigned char>(point) && 
             _param_map["blue_high"] >= static_cast<unsigned char>(point) 
           ) {
-            rgb._b = _param_map["intensity"] * (static_cast<unsigned char>(point) - _param_map["blue_low"]);
+            rgb._b = _param_map["intensity"] * (static_cast<unsigned char>(point) - _param_map["blue_low"])
+                     / (_param_map["blue_high"] - _param_map["blue_low"] );
         }
         else if( _param_map["green_low"] <= static_cast<unsigned char>(point) && 
             _param_map["green_high"] >= static_cast<unsigned char>(point) 
           ) {
-            rgb._g = _param_map["intensity"] * (static_cast<unsigned char>(point) - _param_map["green_low"]);
+            rgb._g = _param_map["intensity"] * (static_cast<unsigned char>(point) - _param_map["green_low"])
+                     / (_param_map["blue_high"] - _param_map["blue_low"] );
         }
         else if( _param_map["red_low"] <= static_cast<unsigned char>(point) && 
             _param_map["red_high"] >= static_cast<unsigned char>(point) 
           ) {
-            rgb._r = _param_map["intensity"] * (static_cast<unsigned char>(point) - _param_map["red_low"]);
+            rgb._r = _param_map["intensity"] * (static_cast<unsigned char>(point) - _param_map["red_low"])
+                     / (_param_map["blue_high"] - _param_map["blue_low"] );
+        
+            /*cout << rgb._r << " " << static_cast<unsigned char>(point) << " "
+                 << (static_cast<unsigned char>(point) - _param_map["red_low"]) << endl;*/
         }
         else {
             std::cout << "ERROR: " << std::endl;
