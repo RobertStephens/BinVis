@@ -34,9 +34,7 @@
 class PixelAssign {
 
 public:
-    PixelAssign(void) : _blue_low(0x01), _blue_high(0x54),
-                        _green_low(0x55), _green_high(0xAA),
-                        _red_low(0xAB), _red_high(0xFE) {
+    PixelAssign(void) {
     
         std::string config_file = "./config/config.txt";
         bool dump_results = true;
@@ -51,15 +49,6 @@ public:
 private:
 
     void dump_param_map(void);
-
-    unsigned char _blue_low;
-    unsigned char _blue_high;
-
-    unsigned char _green_low;
-    unsigned char _green_high;
-
-    unsigned char _red_low;
-    unsigned char _red_high;
 
     std::map<std::string, unsigned short> _param_map;
 

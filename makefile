@@ -48,6 +48,9 @@ png++: png++_link
 png++_link:
 	touch png++ && rm png++ && ln -s -f png++-$(PNG++VER) png++
 
+test: ./test/bin_out
+	make -C ./test
+
 clean:
 	find ./ -iname '*.o' | xargs rm
-	rm ./bin_vis ./png++
+	rm ./bin_vis ./png++ ./test/bin_out
