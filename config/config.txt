@@ -1,6 +1,18 @@
+###############################
 ### output image parameters ###
+###############################
 
-intensity 100     #one byte, 0 to FF
-alpha     65535   #two bytes, 0 to FFFF
+
+### png ####
+intensity   255     #one byte, 0 to FF
+alpha       65535   #two bytes, 0 to FFFF
+
+### colour buckets, one byte each ###
+blue_low    1
+blue_high   84
+green_low   85 
+green_high  170
+red_low     171
+red_high    254
 
 
