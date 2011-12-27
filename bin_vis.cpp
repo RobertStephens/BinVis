@@ -94,6 +94,15 @@ int main(int argc, char** argv) {
         cerr << "Image writing error: " << image_file << endl;
         return EXIT_FAILURE;
     }
+    
+    string show = "feh " + image_file;
+    ret = system(show.c_str() );
+    if(ret != 0) {
+        cout << "feh not installed or x not running" << endl; 
+        cout << "png has been generated but can't be displayed right now" << endl;
+    }
+
+    cout << image_file << " written, exiting " << endl;
 
     return EXIT_SUCCESS;
 }
