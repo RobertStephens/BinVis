@@ -43,6 +43,13 @@
  cd ./BinVis
  make
  ./bin_vis target_binary [ destination_image.png ]
+ 
+ The program will attempt to automatically display the newly created png image using "feh", which is 
+ a commandline image viewer (needs x or x over ssh). If this isn't possible the png is still produced
+ and the program will still successfully complete.
+ 
+ Debian based: sudo apt-get install feh
+ Redhat based: sudo yum install feh
 
 
         #####################
